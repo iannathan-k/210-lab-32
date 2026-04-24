@@ -7,48 +7,36 @@
 using namespace std;
 
 // COMSC-210 | Lab 33 | Ian Kusmiantoro
+const int LANES = 4;
 
-void printQueue(const deque<Car>&);
+void printQueue(const array<deque<Car>, 4>&);
 
 int main() {
     srand(time(0));
-
-    deque<Car> toll_booth;
-
+   
     const int INITIAL_LINE = 2;
     const int MIN = 1;
     const int MAX = 100;
-    const int PROB_LEAVE = 55;
 
-    for (int i = 0; i < INITIAL_LINE; i++) {
-        toll_booth.push_back(Car());
-    }
+    array<deque<Car>, 4> plaza;
+
+    // Dummy stuff
+    plaza.at(0).push_back(Car());
+    plaza.at(0).push_back(Car());
+    plaza.at(1).push_back(Car());
+    plaza.at(3).push_back(Car());
 
     // Initial State
     cout << "Initial Queue:" << endl;
-    printQueue(toll_booth);
+    printQueue(plaza);
 
-    int time = 0;
-    while (!toll_booth.empty()) {
-        int prob = rand() % (MAX - MIN + 1) + MIN; // gen random num from 1 to 100
-        time++;
+    // Remove some stuffs
+    plaza.at(0).pop_back();
+    plaza.at(3).pop_back();
+    cout << "Front Car of First Lane: ";
+    plaza.at(0).front().print();
 
-        cout << "Time: " << time << endl;
-        cout << "Operation: ";
-        if (prob <= PROB_LEAVE) {
-            // Pop front
-            cout << "Paid - ";
-            toll_booth.front().print(); // Print the front car before removing
-            toll_booth.pop_front();
-        } else {
-            // Push back
-            cout << "Joined - ";
-            toll_booth.push_back(Car());
-            toll_booth.back().print(); // Print the newly added car at the back
-        }
-
-        printQueue(toll_booth);
-    }
+    printQueue(plaza);
 
     return 0;
 }
@@ -56,15 +44,20 @@ int main() {
 // printQueue() prints a given deque in a neatly formatted manner
 // parameters: const deque<Car>& queue - the deque to be printed
 // returns: void
-void printQueue(const deque<Car>& queue) {
-    cout << "Queue:" << endl;
-    if (queue.empty()) {
-        cout << "\tQueue is empty" << endl;
-        return;
-    }
+void printQueue(const array<deque<Car>, 4>& plaza) {
+    for (int i = 0; i < LANES; i++) {
+        cout << "Lane " << i + 1 << " Queue:" << endl;
 
-    for (Car c : queue) {
-        cout << "\t";
-        c.print();
+        deque<Car> queue = plaza.at(i);
+        if (queue.empty()) {
+            cout << "\tQueue is empty" << endl;
+            continue;
+        }
+
+        for (Car c : queue) {
+            cout << "\t";
+            c.print();
+        }
     }
+    cout << endl;
 }
