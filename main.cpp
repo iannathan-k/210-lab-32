@@ -19,6 +19,7 @@ int main() {
     const int RUN_TIME = 20;
     const int MIN = 1;
     const int MAX = 100;
+    const int PROB_JOIN_EMPTY = 50;
 
     array<deque<Car>, 4> plaza;
 
@@ -33,6 +34,8 @@ int main() {
     printPlaza(plaza);
 
     // Milestone 3 explicitly states to only code the 50/50
+    // But I assume that's because you want us to implement the switching in milestone 5,
+    // So the "when empty" clause is still on the table
     for (int i = 1; i <= RUN_TIME; i++) {
         cout << "===== TIME " << i << " =====" << endl;
 
@@ -41,7 +44,25 @@ int main() {
 
             deque<Car>& q = plaza.at(j);
             int prob = rand() % (MAX - MIN + 1) + MIN;
-            if (prob <= 50 && !q.empty()) {
+
+            // It seems like milestone 3 doesn't call for this yet, so I'll save it for milestone 5
+            // // Guard clause to handle when empty, and will skip the rest of the code if entered
+            // // This is to avoid repeatedly nesting which i personally dislike because i think it looks ugly
+            // if (q.empty()) {
+            //     // 50-50 that a car joins if the line is empty
+            //     if (prob <= PROB_JOIN_EMPTY) {
+            //         // Car Joins
+            //         cout << "Joined - ";
+            //         q.push_back(Car());
+            //         q.back().print(); // Prints the newly added car
+            //     } else {
+            //         cout << "Nothing Happened" << endl;
+            //     }
+            //     continue;
+            // }
+
+            // Here's the 5050
+            if (prob <= PROB_JOIN_EMPTY) {
                 // Car Leaves
                 cout << "Paid - ";
                 q.front().print(); // Prints front car before popping
