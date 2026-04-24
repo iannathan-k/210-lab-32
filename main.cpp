@@ -45,23 +45,21 @@ int main() {
             deque<Car>& q = plaza.at(j);
             int prob = rand() % (MAX - MIN + 1) + MIN;
 
-            // It seems like milestone 3 doesn't call for this yet, so I'll save it for milestone 5
-            // // Guard clause to handle when empty, and will skip the rest of the code if entered
-            // // This is to avoid repeatedly nesting which i personally dislike because i think it looks ugly
-            // if (q.empty()) {
-            //     // 50-50 that a car joins if the line is empty
-            //     if (prob <= PROB_JOIN_EMPTY) {
-            //         // Car Joins
-            //         cout << "Joined - ";
-            //         q.push_back(Car());
-            //         q.back().print(); // Prints the newly added car
-            //     } else {
-            //         cout << "Nothing Happened" << endl;
-            //     }
-            //     continue;
-            // }
+            // Guard clause to handle when empty, and will skip the rest of the code if entered
+            // This is to avoid repeatedly nesting which i personally dislike because i think it looks ugly
+            if (q.empty()) {
+                // 50-50 that a car joins if the line is empty
+                if (prob <= PROB_JOIN_EMPTY) {
+                    // Car Joins
+                    cout << "Joined - ";
+                    q.push_back(Car());
+                    q.back().print(); // Prints the newly added car
+                } else {
+                    cout << "Nothing Happened" << endl;
+                }
+                continue;
+            }
 
-            // Here's the 5050
             if (prob <= PROB_JOIN_EMPTY) {
                 // Car Leaves
                 cout << "Paid - ";
