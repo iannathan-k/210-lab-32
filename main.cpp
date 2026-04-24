@@ -1,6 +1,7 @@
 #include <iostream>
 #include <deque>
 #include <ctime>
+#include <array>
 #include "Car.h"
 
 using namespace std;
