@@ -5,6 +5,8 @@
 
 using namespace std;
 
+// COMSC-210 | Lab 32 | Ian Kusmiantoro
+
 void printQueue(const deque<Car>&);
 
 int main() {
@@ -15,6 +17,7 @@ int main() {
     const int INITIAL_LINE = 2;
     const int MIN = 1;
     const int MAX = 100;
+    const int PROB_LEAVE = 55;
 
     for (int i = 0; i < INITIAL_LINE; i++) {
         toll_booth.push_back(Car());
@@ -26,12 +29,12 @@ int main() {
 
     int time = 0;
     while (!toll_booth.empty()) {
-        int prob = rand() % (MAX - MIN + 1) + MIN;
+        int prob = rand() % (MAX - MIN + 1) + MIN; // gen random num from 1 to 100
         time++;
 
         cout << "Time: " << time << endl;
         cout << "Operation: ";
-        if (prob <= 55) {
+        if (prob <= PROB_LEAVE) {
             // Pop front
             cout << "Paid - ";
             toll_booth.front().print(); // Print the front car before removing
@@ -49,7 +52,7 @@ int main() {
     return 0;
 }
 
-// printQueue() prints a give deque in a neatly formatted manner
+// printQueue() prints a given deque in a neatly formatted manner
 // parameters: const deque<Car>& queue - the deque to be printed
 // returns: void
 void printQueue(const deque<Car>& queue) {
