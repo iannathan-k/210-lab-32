@@ -7,14 +7,16 @@
 using namespace std;
 
 // COMSC-210 | Lab 33 | Ian Kusmiantoro
+
 const int LANES = 4;
 
-void printQueue(const array<deque<Car>, 4>&);
+void printPlaza(const array<deque<Car>, 4>&);
 
 int main() {
     srand(time(0));
    
     const int INITIAL_LINE = 2;
+    const int RUN_TIME = 20;
     const int MIN = 1;
     const int MAX = 100;
 
@@ -28,15 +30,40 @@ int main() {
 
     // Initial State
     cout << "Initial Queue:" << endl;
-    printQueue(plaza);
+    printPlaza(plaza);
+
+    // Milestone 3 explicitly states to only code the 50/50
+    for (int i = 1; i <= RUN_TIME; i++) {
+        cout << "===== TIME " << i << " =====" << endl;
+
+        for (int j = 0; j < LANES; j++) {
+            cout << "Lane " << j + 1 << ": ";
+
+            deque<Car>& q = plaza.at(j);
+            int prob = rand() % (MAX - MIN + 1) + MIN;
+            if (prob <= 50 && !q.empty()) {
+                // Car Leaves
+                cout << "Paid - ";
+                q.front().print(); // Prints front car before popping
+                q.pop_front();
+            } else {
+                // Car Joins
+                cout << "Joined - ";
+                q.push_back(Car());
+                q.back().print(); // Prints the newly added car
+            }
+        }
+
+        printPlaza(plaza);
+    }
 
     return 0;
 }
 
-// printQueue() prints a given deque in a neatly formatted manner
+// printPlaza() prints a given deque in a neatly formatted manner
 // parameters: const deque<Car>& queue - the deque to be printed
 // returns: void
-void printQueue(const array<deque<Car>, 4>& plaza) {
+void printPlaza(const array<deque<Car>, 4>& plaza) {
     for (int i = 0; i < LANES; i++) {
         cout << "Lane " << i + 1 << ":" << endl;
 
