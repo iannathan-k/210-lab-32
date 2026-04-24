@@ -20,6 +20,9 @@ int main() {
     const int MIN = 1;
     const int MAX = 100;
     const int PROB_JOIN_EMPTY = 50;
+    const int PROB_PAID_MIN = 0, PROB_PAID_MAX = 46;
+    const int PROB_JOIN_MIN = 47, PROB_JOIN_MAX = PROB_JOIN_MIN + 39;
+    const int PROB_SWITCH = 15;
 
     array<deque<Car>, 4> plaza;
 
@@ -33,7 +36,6 @@ int main() {
     cout << "Initial Queue:" << endl;
     printPlaza(plaza);
 
-    // Milestone 3 explicitly states to only code the 50/50
     // But I assume that's because you want us to implement the switching in milestone 5,
     // So the "when empty" clause is still on the table
     for (int i = 1; i <= RUN_TIME; i++) {
@@ -60,16 +62,43 @@ int main() {
                 continue;
             }
 
-            if (prob <= PROB_JOIN_EMPTY) {
+            if (prob <= PROB_PAID) {
                 // Car Leaves
                 cout << "Paid - ";
                 q.front().print(); // Prints front car before popping
                 q.pop_front();
-            } else {
+                continue;
+            } else if (prob <=) {
+
+            }
+
+            // Ok I was wrong, i am thiking about how to make the probabilities work
+            prob = rand() % (MAX - MIN + 1) + MIN;
+            if (prob <= PROB_JOIN) {
                 // Car Joins
                 cout << "Joined - ";
                 q.push_back(Car());
                 q.back().print(); // Prints the newly added car
+                continue;
+            }
+
+            prob = rand() % (MAX - MIN + 1) + MIN;
+            if (prob <= PROB_SWITCH) {
+                // Car Switches
+                cout << "Switched - ";
+
+                // Select random lane
+                int new_lane = rand() % LANES;
+                while (new_lane == j) {
+                    new_lane = rand() % LANES;
+                }
+
+                Car c = q.back();
+                c.print();
+                q.pop_back();
+
+                plaza.at(new_lane).push_back(c);
+                continue;
             }
         }
 
