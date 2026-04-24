@@ -20,22 +20,14 @@ int main() {
 
     array<deque<Car>, 4> plaza;
 
-    // Dummy stuff
-    plaza.at(0).push_back(Car());
-    plaza.at(0).push_back(Car());
-    plaza.at(1).push_back(Car());
-    plaza.at(3).push_back(Car());
+    for (deque<Car>& queue : plaza) {
+        for (int i = 0; i < INITIAL_LINE; i++) {
+            queue.push_back(Car());
+        }
+    }
 
     // Initial State
     cout << "Initial Queue:" << endl;
-    printQueue(plaza);
-
-    // Remove some stuffs
-    plaza.at(0).pop_back();
-    plaza.at(3).pop_back();
-    cout << "Front Car of First Lane: ";
-    plaza.at(0).front().print();
-
     printQueue(plaza);
 
     return 0;
@@ -46,7 +38,7 @@ int main() {
 // returns: void
 void printQueue(const array<deque<Car>, 4>& plaza) {
     for (int i = 0; i < LANES; i++) {
-        cout << "Lane " << i + 1 << " Queue:" << endl;
+        cout << "Lane " << i + 1 << ":" << endl;
 
         deque<Car> queue = plaza.at(i);
         if (queue.empty()) {
