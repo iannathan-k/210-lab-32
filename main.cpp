@@ -36,14 +36,15 @@ int main() {
     cout << "Initial Queue:" << endl;
     printPlaza(plaza);
 
-    // But I assume that's because you want us to implement the switching in milestone 5,
-    // So the "when empty" clause is still on the table
+    // Iterate over each time interval
     for (int i = 1; i <= RUN_TIME; i++) {
         cout << "===== TIME " << i << " =====" << endl;
 
+        // For each lane within the time interval...
         for (int j = 0; j < LANES; j++) {
             cout << "Lane " << j + 1 << ": ";
 
+            // Using reference because the deque needs to edited!
             deque<Car>& q = plaza.at(j);
             int prob = rand() % (MAX - MIN + 1) + MIN;
 
