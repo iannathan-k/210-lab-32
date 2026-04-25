@@ -19,10 +19,10 @@ int main() {
     const int RUN_TIME = 20;
     const int MIN = 1;
     const int MAX = 100;
+
     const int PROB_JOIN_EMPTY = 50;
-    const int PROB_PAID_MIN = 0, PROB_PAID_MAX = 46;
-    const int PROB_JOIN_MIN = 47, PROB_JOIN_MAX = PROB_JOIN_MIN + 39;
-    const int PROB_SWITCH = 15;
+    const int PROB_PAID = 46;
+    const int PROB_JOIN = PROB_PAID + 39;
 
     array<deque<Car>, 4> plaza;
 
@@ -67,23 +67,12 @@ int main() {
                 cout << "Paid - ";
                 q.front().print(); // Prints front car before popping
                 q.pop_front();
-                continue;
-            } else if (prob <=) {
-
-            }
-
-            // Ok I was wrong, i am thiking about how to make the probabilities work
-            prob = rand() % (MAX - MIN + 1) + MIN;
-            if (prob <= PROB_JOIN) {
+            } else if (prob <= PROB_JOIN) {
                 // Car Joins
                 cout << "Joined - ";
                 q.push_back(Car());
                 q.back().print(); // Prints the newly added car
-                continue;
-            }
-
-            prob = rand() % (MAX - MIN + 1) + MIN;
-            if (prob <= PROB_SWITCH) {
+            } else {
                 // Car Switches
                 cout << "Switched - ";
 
@@ -98,7 +87,6 @@ int main() {
                 q.pop_back();
 
                 plaza.at(new_lane).push_back(c);
-                continue;
             }
         }
 
