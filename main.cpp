@@ -10,7 +10,7 @@ using namespace std;
 
 const int LANES = 4;
 
-void printPlaza(const array<deque<Car>, 4>&);
+void printPlaza(const array<deque<Car>, LANES>&);
 
 int main() {
     srand(time(0));
@@ -24,7 +24,7 @@ int main() {
     const int PROB_PAID = 46;
     const int PROB_JOIN = PROB_PAID + 39;
 
-    array<deque<Car>, 4> plaza;
+    array<deque<Car>, LANES> plaza;
 
     for (deque<Car>& queue : plaza) {
         for (int i = 0; i < INITIAL_LINE; i++) {
@@ -57,6 +57,7 @@ int main() {
                     q.push_back(Car());
                     q.back().print(); // Prints the newly added car
                 } else {
+                    // Car doesn't Join
                     cout << "Nothing Happened" << endl;
                 }
                 continue;
@@ -76,16 +77,18 @@ int main() {
                 // Car Switches
                 cout << "Switched - ";
 
-                // Select random lane
+                // Select random lane that isnt itself
                 int new_lane = rand() % LANES;
                 while (new_lane == j) {
                     new_lane = rand() % LANES;
                 }
 
+                // remove car from this lane
                 Car c = q.back();
                 c.print();
                 q.pop_back();
 
+                // put car in new lane
                 plaza.at(new_lane).push_back(c);
             }
         }
@@ -96,8 +99,8 @@ int main() {
     return 0;
 }
 
-// printPlaza() prints a given deque in a neatly formatted manner
-// parameters: const deque<Car>& queue - the deque to be printed
+// printPlaza() prints a given array of deques in a neatly formatted manner
+// parameters: const array<deque<Car>, 4>& plaza - the array of deques to be printed
 // returns: void
 void printPlaza(const array<deque<Car>, 4>& plaza) {
     for (int i = 0; i < LANES; i++) {
